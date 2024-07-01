@@ -22,7 +22,7 @@ public class Pixycontroller : ControllerBase
                 XmlDocument doc = new XmlDocument();
                 doc.LoadXml(xmlString);
                 var jsonString = JsonConvert.SerializeXmlNode(doc);
-                
+                jsonString = jsonString.Replace("@","");
                 return Ok(jsonString);
                 
             }
