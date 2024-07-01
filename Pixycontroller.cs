@@ -29,7 +29,24 @@ public class Pixycontroller : ControllerBase
             else
             {
                 throw new Exception($"Ошибка запроса: {response.StatusCode}");
-            }   
+            }
         }
+    }
+    
+    
+    
+    
+    [HttpGet]
+    [Route("base/update/crew")]
+    public Task<IActionResult> GetCrewBaseUpToDate() //todo
+    {
+        throw new NotImplementedException();
+    }
+    
+    [HttpGet]
+    [Route("base/update/prestige")]
+    public Task<IActionResult> GetPrestigeBaseUpToDate() //todo
+    {
+        throw new NotImplementedException();
     }
 }
