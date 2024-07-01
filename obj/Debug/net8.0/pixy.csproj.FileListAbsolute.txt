@@ -32,3 +32,4 @@ C:\Users\Dunice\RiderProjects\pixy\obj\Debug\net8.0\pixy.pdb
 C:\Users\Dunice\RiderProjects\pixy\obj\Debug\net8.0\pixy.genruntimeconfig.cache
 C:\Users\Dunice\RiderProjects\pixy\obj\Debug\net8.0\ref\pixy.dll
 C:\Users\Dunice\RiderProjects\pixy\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\Dunice\RiderProjects\pixy\obj\Debug\net8.0\pixy.sourcelink.json
