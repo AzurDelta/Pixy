@@ -40,7 +40,7 @@ public class Pixycontroller : ControllerBase
     
     [HttpGet]
     [Route("base/update/prestige")]
-    public async Task<IActionResult> GetPrestigeBaseUpToDate() //todo
+    public async Task<IActionResult> GetPrestigeBaseUpToDate()
     {
         await _service.FlushPrestigeList();
         using (HttpClient client = new HttpClient())
