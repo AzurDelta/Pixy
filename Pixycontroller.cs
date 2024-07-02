@@ -2,35 +2,24 @@ using System.Xml;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using pixy.Interfaces;
 
 namespace pixy;
 [ApiController]
-[Route("pixy/crew")]
+[Route("pixy")]
 public class Pixycontroller : ControllerBase
 {
+    private ICrewService _service;
+    
+    public Pixycontroller(ICrewService service)
+    {
+        _service = service;
+    }
+    
     [HttpGet]
     public async Task<ActionResult> GetCrewList()
     {
-        var url =
-            "http://api.pixelstarships.com/CharacterService/ListAllCharacterDesigns2?languageKey=en&version=0.999.5";
-        using (HttpClient client = new HttpClient())
-        {
-            HttpResponseMessage response = await client.GetAsync(url);
-            if (response.IsSuccessStatusCode)
-            {
-                string xmlString = await response.Content.ReadAsStringAsync();
-                XmlDocument doc = new XmlDocument();
-                doc.LoadXml(xmlString);
-                var jsonString = JsonConvert.SerializeXmlNode(doc);
-                jsonString = jsonString.Replace("@","");
-                return Ok(jsonString);
-                
-            }
-            else
-            {
-                throw new Exception($"Ошибка запроса: {response.StatusCode}");
-            }
-        }
+            return Ok("<PrestigeCharacterFrom errorMessage=\"Cannot prestige legendary and special characters.\" />".Length);
     }
     
     
@@ -38,15 +27,35 @@ public class Pixycontroller : ControllerBase
     
     [HttpGet]
     [Route("base/update/crew")]
-    public Task<IActionResult> GetCrewBaseUpToDate() //todo
+    public async Task<IActionResult> GetCrewBaseUpToDate()
     {
-        throw new NotImplementedException();
+        using (HttpClient client = new HttpClient())
+        {
+            HttpResponseMessage response = await client.GetAsync("http://api.pixelstarships.com/CharacterService/ListAllCharacterDesigns2?languageKey=ru&version=0.999.5");
+            await _service.UpdateCrewDBAsync(await response.Content.ReadAsStringAsync());
+            response.Dispose();
+        }
+        return Ok();
     }
     
     [HttpGet]
     [Route("base/update/prestige")]
-    public Task<IActionResult> GetPrestigeBaseUpToDate() //todo
+    public async Task<IActionResult> GetPrestigeBaseUpToDate() //todo
     {
-        throw new NotImplementedException();
+        await _service.FlushPrestigeList();
+        using (HttpClient client = new HttpClient())
+        {
+            var maxId = await _service.GetMaxIDAsync();
+            for (int id = 1; id < maxId; id++)
+            {
+                HttpResponseMessage response = await client.GetAsync($"http://api.pixelstarships.com/CharacterService/PrestigeCharacterFrom?characterDesignId={id}");
+                await _service.UpdatePrestigeDBAsync(await response.Content.ReadAsStringAsync());
+                response.Dispose();
+                Thread.Sleep(100);
+            }
+
+            
+        }
+        return Ok();
     }
 }

@@ -1,4 +1,10 @@
 base refresh methods (2)
 prestiges invalidation on calendar time
 prestige branching iterations to the db
-sustainability depending on List<CrewMember>  1/16 for 2* and 1/2 gor 5* (moved to RarityValues)
+sustainability depending on List<CrewMember> RarityValues
+
+
+
+
+Battleg00se — 02-07T11:50
+Если серьёзно решил этим функционалом заняться, то можно подкинуть хотелку? На Пиксель престиже забиваешь весь свой экипаж и он весь учитывается при рассчёте престижа. И мне там не хватает такой функции как "Пометить этого перса, что он у меня есть, но в престиж я его сливать не хочу".
