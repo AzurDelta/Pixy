@@ -9,4 +9,6 @@ public interface ICrewRepository
     public Task SavePrestigeDBAsync(List<Prestige> prestigeList);
     
     public Task<int> GetMaxIDAsync();
+
+    public Task ParseToCategories();
 }

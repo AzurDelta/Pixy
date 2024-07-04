@@ -22,11 +22,8 @@ public class Pixycontroller : ControllerBase
             return Ok("<PrestigeCharacterFrom errorMessage=\"Cannot prestige legendary and special characters.\" />".Length);
     }
     
-    
-    
-    
     [HttpGet]
-    [Route("base/update/crew")]
+    [Route("update/crew")]
     public async Task<IActionResult> GetCrewBaseUpToDate()
     {
         using (HttpClient client = new HttpClient())
@@ -39,7 +36,7 @@ public class Pixycontroller : ControllerBase
     }
     
     [HttpGet]
-    [Route("base/update/prestige")]
+    [Route("update/prestige")]
     public async Task<IActionResult> GetPrestigeBaseUpToDate()
     {
         await _service.FlushPrestigeList();
@@ -53,9 +50,17 @@ public class Pixycontroller : ControllerBase
                 response.Dispose();
                 Thread.Sleep(100);
             }
-
-            
         }
+        
         return Ok();
     }
+
+    [HttpGet]
+    [Route("parse/prestige")]
+    public async Task<IActionResult> ParsePrestige()
+    {
+        await _service.ParseToCategories();
+        return Ok();
+    }
+    
 }

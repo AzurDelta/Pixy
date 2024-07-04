@@ -11,4 +11,9 @@ public class Context : DbContext
     
     public DbSet<CrewMember> CrewMembers { get; set; }
     public DbSet<Prestige> Prestiges { get; set; }
+    public DbSet<EliteToUnique> EliteToUniques { get; set; }
+    public DbSet<UniqueToEpic> UniqueToEpics { get; set; }
+    public DbSet<EpicToHero> EpicToHeroes { get; set; }
+    public DbSet<HeroToLeg> HeroToLegs { get; set; }
+    
 }

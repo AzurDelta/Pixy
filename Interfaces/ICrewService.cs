@@ -7,7 +7,8 @@ public interface ICrewService
     public Task FlushPrestigeList();
     
     public Task UpdatePrestigeDBAsync(string responce);
-    
+
+    public Task ParseToCategories();
     
     public Task<int> GetMaxIDAsync();
 }

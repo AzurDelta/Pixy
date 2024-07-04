@@ -55,6 +55,11 @@ public class CrewService : ICrewService
             }
     }
 
+    public async Task ParseToCategories()
+    {
+        await _repository.ParseToCategories();
+    }
+    
     public Task<int> GetMaxIDAsync()
     {
         return _repository.GetMaxIDAsync();
