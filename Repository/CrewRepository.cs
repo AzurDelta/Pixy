@@ -46,18 +46,18 @@ public class CrewRepository : ICrewRepository
             .Where(c => c.Rarity == "Unique")
             .Select(c => c.Id)
             .ToListAsync();
-       var eliteToUnique = new List<EliteToUnique>();
-       var res = new List<Prestige>();
+        
        unique.ForEach(u =>
        {
-           res = _dbContext.Prestiges.Where(p => p.ResultMemberId == u).ToList(); 
-           res.ForEach(p => 
+          _dbContext.Prestiges.Where(p => p.ResultMemberId == u)
+              .ToList()
+              .ForEach(p => 
            {
                _dbContext.EliteToUniques.Add(new EliteToUnique
                {
-                    EliteOneId = p.MemberOneId,
-                    EliteTwoId = p.MemberTwoId,
-                    ResultUniqueId = p.ResultMemberId
+                   EliteOneId = p.MemberOneId,
+                   EliteTwoId = p.MemberTwoId,
+                   ResultUniqueId = p.ResultMemberId
                });
            });
        });
